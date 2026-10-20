@@ -121,7 +121,7 @@ body.v13-light .date-navigation{background:#fff}body.v13-light .date-navigation 
 (function(){
  const dayBadge=document.querySelector('.hero-badges .badge.status');
  const day=dayBadge?.textContent?.trim()||'';
- if(/^\\d{4}-\\d{2}-\\d{2}$/.test(day)){
+ if(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(day)){
    const nav=document.createElement('nav');nav.className='date-navigation';nav.setAttribute('aria-label','Choose fixture date');
    const label=document.createElement('label');label.textContent='Fixture date';label.setAttribute('for','fixture-date-picker');
    const picker=document.createElement('input');picker.type='date';picker.id='fixture-date-picker';picker.value=day;
@@ -129,7 +129,7 @@ body.v13-light .date-navigation{background:#fff}body.v13-light .date-navigation 
    const base=window.location.pathname.includes('/days/')?'../':'';
    const link=(date)=>base+'days/'+date+'.html';
    const currentUK=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-   const isoToday=/^\\d{4}-\\d{2}-\\d{2}$/.test(currentUK)?currentUK:day;
+   const isoToday=/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(currentUK)?currentUK:day;
    const shift=(x,n)=>{let d=new Date(x+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)};
    picker.min=shift(isoToday,-1);picker.max=shift(isoToday,1);
    picker.addEventListener('change',()=>{if(picker.value)window.location.href=link(picker.value)});
